@@ -1,0 +1,41 @@
+.background {
+    /* border: 5px solid black; */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .75);
+    /* padding: 70px; */
+}
+
+.modal {
+    /* border: 10px solid black; */
+    position: fixed;
+    z-index: 10;
+    top: 70px;
+    left: 70px;
+    background: white;
+    height: calc(100% - 140px);
+    width: calc(100% - 140px);
+    border-radius: 20px;
+    padding: 20px;
+    overflow: scroll;
+    /* scroll-behavior: auto; */
+}
+
+.closeModal {
+    border: 1px solid gray;
+    width: fit-content;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    position: absolute;
+    right: 20px; /* padding-right of parent */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
