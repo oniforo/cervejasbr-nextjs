@@ -1,0 +1,33 @@
+.container {
+  padding: 0;
+  /* background-color: lightgray; */
+}
+
+.main {
+  /* border: 1px solid black; */
+  /* min-height: 100vh; */
+  padding: 60px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 100px; */ /* height of header */
+  margin-left: 250px;
+
+}
+
+.background {
+  border: 1px solid black;
+  height: 100vh;
+  width: 100%;
+  background-image: url('/bg.jpg');
+  background-size: cover;
+  background-position: top;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 100px;
+  padding-top: 50px;
+  color: white;
+}
