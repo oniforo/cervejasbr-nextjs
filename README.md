@@ -1,34 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# cervejasBR
 
-## Getting Started
+A storefront for Brazilian craft beer, built with Next.js and powered by
+[Commerce.js](https://commercejs.com/) (Chec) for product and cart data.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
+- **Homepage** — hero section, a brand-logo carousel, and a bestseller
+  product carousel (Swiper).
+- **Loja (`/loja`)** — full product catalog in a grid, with a category
+  sidebar.
+- **Carrinho (`/carrinho`)** — shopping cart with editable line item
+  quantities, subtotal, and a checkout form (UI only).
+- Cart state is fetched from Chec on load and kept in React context, shared
+  across all pages.
+
+## Tech stack
+
+- [Next.js 12](https://nextjs.org/) + React 18 + TypeScript
+- [@chec/commerce.js](https://commercejs.com/docs/) for products and cart
+- [Swiper](https://swiperjs.com/) for carousels
+- [Font Awesome](https://fontawesome.com/) for icons
+- Sass / CSS Modules for styling
+
+## Getting started
+
+### Prerequisites
+
+- Node.js
+- Yarn
+- A [Chec](https://authorize.chec.io/) account with a public API key
+
+### Setup
+
+1. Install dependencies:
+
+   ```bash
+   yarn install
+   ```
+
+2. Add your Chec public API key to a `.env.development` file in the project
+   root:
+
+   ```
+   NEXT_PUBLIC_CHEC_PUBLIC_API_KEY=pk_your_key_here
+   ```
+
+3. Run the dev server:
+
+   ```bash
+   yarn dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Other scripts
+
+- `yarn build` — production build
+- `yarn start` — run the production build
+- `yarn lint` — run ESLint
+
+## Project structure
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+components/    Shared UI: Header, Footer, HtmlHead, Item, Bestseller,
+               Slider, ProductModal
+context/       Cart state (React context + reducer), synced with Chec
+lib/           Commerce.js SDK client
+pages/         index (home), loja (shop), carrinho (cart)
+public/        Static assets: brand logos, header logo, background image
+styles/        Global styles and CSS Modules (per-page and per-component)
+```
