@@ -32,26 +32,31 @@ const CartItem = ({ id, image, name, price, quantity, line_total, currency, sku 
 
     const handleUpdateCart = ({ cart }: any) => { setCart(cart) }
 
+    const handleCartError = (err: Error) => console.error('Failed to update cart:', err.message)
+
     const incrementQuantity = () => {
         commerce.cart
             .update(id, { quantity: quantity + 1 })
             .then(handleUpdateCart)
+            .catch(handleCartError)
     }
 
     const decrementQuantity = () => {
-        quantity > 1 
+        quantity > 1
         ?
         commerce.cart
             .update(id, { quantity: quantity - 1 })
-            .then(handleUpdateCart) 
+            .then(handleUpdateCart)
+            .catch(handleCartError)
         :
         removeItem()
     }
-    
+
     const removeItem = () => {
         commerce.cart
             .remove(id)
             .then(handleUpdateCart)
+            .catch(handleCartError)
     }
 
     return (

@@ -14,15 +14,13 @@ import Footer from '../components/footer'
 import Bestseller from '../components/bestseller'
 import ProductModal from '../components/productModal'
 
-import commerce from '../lib/commerce'
+import { getStorefrontData } from '../lib/commerce'
 
 export async function getStaticProps() {
-  
-  const merchant = await commerce.merchants.about()
-  const { data: categories } = await commerce.categories.list()
-  const { data: products } = await commerce.products.list()
 
-  return { props: { merchant, categories, products } }
+  const { merchant, categories, products } = await getStorefrontData()
+
+  return { props: { merchant, categories, products }, revalidate: 60 }
 
 }
 
@@ -80,8 +78,12 @@ const Home: NextPage<IProps> = ({ merchant, categories, products }) => {
           Mais vendidos
         </div>
 
-        <Bestseller products={products} setModal={setModal} />          
-        
+        {
+          products.length > 0
+          ? <Bestseller products={products} setModal={setModal} />
+          : <div>Produtos temporariamente indisponíveis. Tente novamente em instantes.</div>
+        }
+
         { modal[0] && <ProductModal modal={modal} setModal={setModal} /> }
         {/* <div>PRODUCTS</div>
         <pre>{JSON.stringify(products, null, 2)}</pre> */}

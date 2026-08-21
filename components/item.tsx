@@ -30,7 +30,7 @@ const Item = ({ name, style, price, url, id, sku, onClick }: IItem) => {
     const addToCart = () => {
       commerce.cart.add(id)
         .then(({ cart }: any) => setCart(cart))
-        .catch()
+        .catch((err: Error) => console.error('Failed to add to cart:', err.message))
     }
 
     return (

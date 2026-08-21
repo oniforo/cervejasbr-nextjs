@@ -13,15 +13,13 @@ import Item from '../components/item'
 import Footer from '../components/footer'
 import ProductModal from '../components/productModal'
 
-import commerce from '../lib/commerce'
+import { getStorefrontData } from '../lib/commerce'
 
 export async function getStaticProps() {
-  
-  const merchant = await commerce.merchants.about()
-  const { data: categories } = await commerce.categories.list()
-  const { data: products } = await commerce.products.list()
 
-  return { props: { merchant, categories, products } }
+  const { merchant, categories, products } = await getStorefrontData()
+
+  return { props: { merchant, categories, products }, revalidate: 60 }
 
 }
 
@@ -65,14 +63,15 @@ const Home: NextPage<IProps> = ({ merchant, categories, products }) => {
           display: 'flex', justifyContent: 'space-around', width: '100%', 
           flexWrap: 'wrap', padding: 20, paddingTop: 50}}>
           {
-            products && products.map((product: IProductMap) => {
+            products.length > 0
+            ? products.map((product: IProductMap) => {
               return (
                 <div style={{margin: 10, marginBottom: 50, /* border: '1px solid black' */}}>
                   <Item
                     key={product.id}
                     id={product.id}
-                    name={product.name} 
-                    style={product.categories[0].name} 
+                    name={product.name}
+                    style={product.categories[0].name}
                     price={product.price.formatted}
                     url={product.assets[0]?.url}
                     sku={product.sku}
@@ -81,8 +80,9 @@ const Home: NextPage<IProps> = ({ merchant, categories, products }) => {
                 </div>
               )
             })
+            : <div>Produtos temporariamente indisponíveis. Tente novamente em instantes.</div>
           }
-          
+
         </div>
 
         <div style={{width: '100%'}}>
